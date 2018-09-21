@@ -20,11 +20,19 @@ CREATE TABLE hd.trequerimiento (
 ) INHERITS (pxp.tbase)
 WITH (oids = false);
 /*****************************F-SCP-JPS-HD-2-22/09/2018*************/
- 
+
+
+/*****************************I-SCP-FPT-HD-0-22/09/2018*************/
+alter table hd.ttipo_requerimiento
+add column id_institucion_externa integer;
+/*****************************F-SCP-FPT-HD-0-22/09/2018*************/
+
+
 /*****************************I-SCP-JRR-HD-3-22/09/2018*************/
 alter table hd.trequerimiento
 add column id_usuario integer;
 /*****************************F-SCP-JRR-HD-3-22/09/2018*************/
+
 
 /*****************************I-SCP-JMH-HD-0-22/09/2018*************/
 alter table hd.trequerimiento
@@ -34,7 +42,9 @@ alter table hd.trequerimiento
 add column solucion_externa varchar(200);
 /*****************************F-SCP-JMH-HD-0-22/09/2018*************/
 
+
 /*****************************I-SCP-JGL-HD-0-22/09/2018*************/
 alter table hd.trequerimiento
 add column descripcion varchar;
 /*****************************F-SCP-JGL-HD-0-22/09/2018*************/
+
