@@ -7,3 +7,8 @@ CREATE TABLE hd.ttipo_requerimiento (
 ) INHERITS (pxp.tbase)
 WITHOUT OIDS;
 /*****************************F-SCP-JRR-HD-0-22/09/2018*************/
+
+/*****************************I-SCP-JRR-HD-1-22/09/2018*************/
+alter table hd.ttipo_requerimiento
+add column cantidad integer;
+/*****************************F-SCP-JRR-HD-1-22/09/2018*************/
