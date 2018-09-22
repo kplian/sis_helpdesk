@@ -19,7 +19,17 @@ CREATE TABLE hd.trequerimiento (
   CONSTRAINT trequerimiento_pkey PRIMARY KEY(id_requerimiento)
 ) INHERITS (pxp.tbase)
 WITH (oids = false);
-/*****************************F-SCP-FPT-HD-2-22/09/2018*************/
+/*****************************F-SCP-JPS-HD-2-22/09/2018*************/
+
+/*****************************I-SCP-FPT-HD-0-22/09/2018*************/
 alter table hd.ttipo_requerimiento
 add column id_institucion_externa integer;
-/*****************************F-SCP-JRR-HD-1-22/09/2018*************/
+/*****************************F-SCP-FPT-HD-0-22/09/2018*************/
+
+
+
+/*****************************I-SCP-JRR-HD-3-22/09/2018*************/
+alter table hd.trequerimiento
+add column id_usuario integer;
+/*****************************F-SCP-JRR-HD-3-22/09/2018*************/
+>>>>>>> 7fd8ce62d2f46ad5669461d93658352823bab4a9
