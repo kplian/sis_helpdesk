@@ -15,8 +15,8 @@ add column cantidad integer;
 
 /*****************************I-SCP-JPS-HD-2-22/09/2018*************/
 CREATE TABLE hd.trequerimiento (
-    id_requerimiento bigserial NOT NULL
-    CONSTRAINT trequerimiento_pkey PRIMARY KEY (id_requerimiento)
-)
-INHERITS (pxp.tbase);
+  id_requerimiento BIGSERIAL,
+  CONSTRAINT trequerimiento_pkey PRIMARY KEY(id_requerimiento)
+) INHERITS (pxp.tbase)
+WITH (oids = false);
 /*****************************F-SCP-JPS-HD-2-22/09/2018*************/
