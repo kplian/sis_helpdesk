@@ -12,3 +12,11 @@ WITHOUT OIDS;
 alter table hd.ttipo_requerimiento
 add column cantidad integer;
 /*****************************F-SCP-JRR-HD-1-22/09/2018*************/
+
+/*****************************I-SCP-JPS-HD-2-22/09/2018*************/
+CREATE TABLE hd.trequerimiento (
+    id_requerimiento bigserial NOT NULL
+    CONSTRAINT trequerimiento_pkey PRIMARY KEY (id_requerimiento)
+)
+INHERITS (pxp.tbase);
+/*****************************F-SCP-JPS-HD-2-22/09/2018*************/
