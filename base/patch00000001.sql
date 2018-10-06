@@ -63,3 +63,7 @@ COMMENT ON COLUMN hd.trequerimiento.id_tipo_requerimiento
 IS 'IDENTIFICADOR FORANEO DE LA TABLA DONDE ESTAN LOS TIPOS DE REQUERIMIENTOS';
 /*****************************F-SCP-JMH-HD-0-05/10/2018*************/
 
+/*****************************I-SCP-JRR-HD-0-06/10/2018*************/
+alter table hd.ttipo_requerimiento
+RENAME COLUMN cantidad TO cantidad_prueba;
+/*****************************F-SCP-JRR-HD-0-06/10/2018*************/
