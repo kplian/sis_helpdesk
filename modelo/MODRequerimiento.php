@@ -42,6 +42,11 @@ class MODRequerimiento extends MODbase{
 		$this->captura('desc_requerimiento_anterior','varchar');
 		$this->captura('desc_institucion','varchar');
 		
+		$this->captura('id_proceso_wf','int4');
+		$this->captura('id_estado_wf','int4');
+		$this->captura('numero_tramite','varchar');
+		$this->captura('estado','varchar');
+		
 		//Ejecuta la instruccion
 		$this->armarConsulta();
 		$this->ejecutarConsulta();

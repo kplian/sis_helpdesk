@@ -88,3 +88,8 @@ add column estado integer;
 alter table hd.trequerimiento
 add column numero_tramite varchar(25);
 /*****************************F-SCP-JRR-HD-0-12/10/2018*************/
+
+
+/*****************************I-SCP-JRR-HD-0-13/10/2018*************/
+ALTER TABLE hd.trequerimiento ALTER COLUMN estado TYPE varchar(50); 
+/*****************************F-SCP-JRR-HD-0-13/10/2018*************/

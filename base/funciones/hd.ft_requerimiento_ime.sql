@@ -25,6 +25,11 @@ DECLARE
 	v_resp		            varchar;
 	v_nombre_funcion        text;
 	v_mensaje_error         text;	
+	v_id_gestion			integer;
+	v_num_tramite			varchar;
+	v_id_proceso_wf			integer;
+	v_id_estado_wf			integer;
+	v_codigo_estado   		varchar;
 			    
 BEGIN
 
@@ -41,6 +46,33 @@ BEGIN
 	if(p_transaccion='HD_REQ_INS')then
 					
         begin
+        	-- inciiar el tramite en el sistema de WF
+        	SELECT id_gestion INTO v_id_gestion
+        	FROM param.tgestion g
+        	WHERE to_char(now(),'YYYY')::numeric = g.gestion;
+	       SELECT 
+	             ps_num_tramite ,
+	             ps_id_proceso_wf ,
+	             ps_id_estado_wf ,
+	             ps_codigo_estado 
+	          into
+	             v_num_tramite,
+	             v_id_proceso_wf,
+	             v_id_estado_wf,
+	             v_codigo_estado   
+	              
+	        FROM wf.f_inicia_tramite(
+	             p_id_usuario, 
+	             v_parametros._id_usuario_ai,
+	             v_parametros._nombre_usuario_ai,
+	             v_id_gestion, 
+	             'HELPD', 
+	             NULL,
+	             NULL,
+	             'Requrimiento 1',
+	             '1');
+             
+             
         	--Sentencia de la insercion
         	insert into hd.trequerimiento(
 			id_requerimiento_anterior,
@@ -55,7 +87,11 @@ BEGIN
 			fecha_reg,
 			id_usuario_ai,
 			id_usuario_mod,
-			fecha_mod
+			fecha_mod,
+			id_proceso_wf,
+			id_estado_wf,
+			numero_tramite,
+			estado
           	) values(
 			v_parametros.id_requerimiento_anterior,
 			v_parametros.id_institucion_externa,
@@ -69,10 +105,11 @@ BEGIN
 			now(),
 			v_parametros._id_usuario_ai,
 			null,
-			null
-							
-			
-			
+			null,
+			v_id_proceso_wf,
+	        v_id_estado_wf,
+			v_num_tramite,	             
+	        v_codigo_estado		
 			)RETURNING id_requerimiento into v_id_requerimiento;
 			
 			--Definicion de la respuesta

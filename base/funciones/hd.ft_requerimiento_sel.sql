@@ -59,7 +59,11 @@ BEGIN
 						usu.cuenta as desc_usuario,
 						tre.nombre as desc_tipo_requerimiento,
 						reqant.descripcion as desc_requerimiento_anterior,
-						ins.nombre as desc_institucion
+						ins.nombre as desc_institucion,
+						req.id_proceso_wf,
+						req.id_estado_wf,
+						req.numero_tramite,
+						req.estado
 							
 						from hd.trequerimiento req
 						inner join segu.tusuario usu1 on usu1.id_usuario = req.id_usuario_reg

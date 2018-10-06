@@ -17,7 +17,31 @@ Phx.vista.Requerimiento=Ext.extend(Phx.gridInterfaz,{
     	//llama al constructor de la clase padre
 		Phx.vista.Requerimiento.superclass.constructor.call(this,config);
 		this.init();
-		this.load({params:{start:0, limit:this.tam_pag}})
+		this.load({params:{start:0, limit:this.tam_pag}});
+		this.addButton('sig_estado',{grupo:[0],text:'Siguiente',iconCls: 'badelante',disabled:true,handler:this.sigEstado,tooltip: '<b>Pasar al Siguiente Estado</b>'});
+		this.addButton('diagrama_gantt',{grupo:[0,1,2],text:'Gant',iconCls: 'bgantt',disabled:true,handler:diagramGantt,tooltip: '<b>Diagrama Gantt de proceso macro</b>'});
+  
+		this.addButton('btnChequeoDocumentosWf',
+            {	grupo:[0,1,2],
+                text: 'Documentos',
+                iconCls: 'bchecklist',
+                disabled: true,
+                handler: this.loadCheckDocumentosReq,
+                tooltip: '<b>Documentos de la Solicitud</b><br/>Subir los documetos requeridos en la solicitud seleccionada.'
+            }
+        );
+        function diagramGantt(){            
+            var data=this.sm.getSelected().data.id_proceso_wf;
+            Phx.CP.loadingShow();
+            Ext.Ajax.request({
+                url:'../../sis_workflow/control/ProcesoWf/diagramaGanttTramite',
+                params:{'id_proceso_wf':data},
+                success:this.successExport,
+                failure: this.conexionFailure,
+                timeout:this.timeout,
+                scope:this
+            });         
+        } 
 	},
 			
 	Atributos:[
@@ -30,6 +54,21 @@ Phx.vista.Requerimiento=Ext.extend(Phx.gridInterfaz,{
 			},
 			type:'Field',
 			form:true 
+		},
+		{
+			config:{
+				name: 'numero_tramite',
+				fieldLabel: 'Numero',
+				allowBlank: true,
+				anchor: '80%',
+				gwidth: 100,
+				maxLength:10
+			},
+				type:'TextField',
+				filters:{pfiltro:'req.numero_tramite',type:'string'},
+				id_grupo:1,
+				grid:true,
+				form:false
 		},
 		{
 			config: {
@@ -246,6 +285,21 @@ Phx.vista.Requerimiento=Ext.extend(Phx.gridInterfaz,{
 			form: true
 		},
 		
+		{
+			config:{
+				name: 'estado',
+				fieldLabel: 'Estado',
+				allowBlank: true,
+				anchor: '80%',
+				gwidth: 100,
+				maxLength:10
+			},
+				type:'TextField',
+				filters:{pfiltro:'req.estado',type:'string'},
+				id_grupo:1,
+				grid:true,
+				form:false
+		},
 		
 		
 		{
@@ -387,6 +441,11 @@ Phx.vista.Requerimiento=Ext.extend(Phx.gridInterfaz,{
 		{name:'desc_requerimiento_anterior', type: 'string'},
 		{name:'desc_institucion', type: 'string'},
 		
+		{name:'id_proceso_wf', type: 'numeric'},
+		{name:'id_estado_wf', type: 'numeric'},
+		{name:'numero_tramite', type: 'string'},
+		{name:'estado', type: 'string'},
+		
 		
 	],
 	sortInfo:{
@@ -394,7 +453,88 @@ Phx.vista.Requerimiento=Ext.extend(Phx.gridInterfaz,{
 		direction: 'ASC'
 	},
 	bdel:true,
-	bsave:true
+	bsave:true,
+	sigEstado:function(){                   
+      var rec=this.sm.getSelected();
+      this.objWizard = Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/FormEstadoWf.php',
+                                'Estado de Wf',
+                                {
+                                    modal:true,
+                                    width:700,
+                                    height:450
+                                }, {data:{
+                                       id_estado_wf:rec.data.id_estado_wf,
+                                       id_proceso_wf:rec.data.id_proceso_wf
+                                    }}, this.idContenedor,'FormEstadoWf',
+                                {
+                                    config:[{
+                                              event:'beforesave',
+                                              delegate: this.onSaveWizard,
+                                              
+                                            }],
+                                    
+                                    scope:this
+                                 });        
+               
+     },
+     
+     onSaveWizard:function(wizard,resp){
+        Phx.CP.loadingShow();
+        
+        Ext.Ajax.request({
+            url:'../../sis_planillas/control/Planilla/siguienteEstadoPlanilla',
+            params:{
+                    
+                id_proceso_wf_act:  resp.id_proceso_wf_act,
+                id_estado_wf_act:   resp.id_estado_wf_act,
+                id_tipo_estado:     resp.id_tipo_estado,
+                id_funcionario_wf:  resp.id_funcionario_wf,
+                id_depto_wf:        resp.id_depto_wf,
+                obs:                resp.obs,
+                json_procesos:      Ext.util.JSON.encode(resp.procesos)
+                },
+            success:this.successWizard,
+            failure: this.conexionFailure,
+            argument:{wizard:wizard},
+            timeout:this.timeout,
+            scope:this
+        });
+    },
+     
+    successWizard:function(resp){
+        Phx.CP.loadingHide();
+        resp.argument.wizard.panel.destroy()
+        this.reload();
+    },
+    preparaMenu:function()
+    {	
+        Phx.vista.Requerimiento.superclass.preparaMenu.call(this); 
+	    this.getBoton('sig_estado').enable();
+        this.getBoton('btnChequeoDocumentosWf').enable(); 
+        this.getBoton('diagrama_gantt').enable();    	        
+        
+    },
+    liberaMenu:function()
+    {	
+        this.getBoton('sig_estado').disable();
+        this.getBoton('btnChequeoDocumentosWf').disable(); 
+        this.getBoton('diagrama_gantt').disable();    	          
+        Phx.vista.Requerimiento.superclass.liberaMenu.call(this);
+    },
+    loadCheckDocumentosReq:function() {
+            var rec=this.sm.getSelected();
+            rec.data.nombreVista = this.nombreVista;
+            Phx.CP.loadWindows('../../../sis_workflow/vista/documento_wf/DocumentoWf.php',
+                    'Chequear documento del WF',
+                    {
+                        width:'90%',
+                        height:500
+                    },
+                    rec.data,
+                    this.idContenedor,
+                    'DocumentoWf'
+        )
+    },
 	}
 )
 </script>

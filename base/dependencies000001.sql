@@ -61,4 +61,13 @@ ALTER TABLE hd.trequerimiento
     NOT DEFERRABLE;   
 /****************************F-DEP-JRR-HD-0-12/10/2018*************/
 
+/****************************I-DEP-JRR-HD-0-13/10/2018*************/
+CREATE OR REPLACE VIEW hd.vrequerimiento AS 
+SELECT r.*, tr.codigo as tipo_requerimiento
+FROM hd.trequerimiento r
+INNER JOIN hd.ttipo_requerimiento tr 
+	ON tr.id_tipo_requerimiento = r.id_tipo_requerimiento; 
+	
+/****************************F-DEP-JRR-HD-0-13/10/2018*************/
+
 
