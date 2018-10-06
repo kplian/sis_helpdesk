@@ -71,3 +71,20 @@ RENAME COLUMN cantidad TO cantidad_prueba;
 /*****************************I-SCP-JRR-HD-1-06/10/2018*************/
 ALTER TABLE hd.ttipo_requerimiento ALTER COLUMN cantidad_prueba TYPE numeric; 
 /*****************************F-SCP-JRR-HD-1-06/10/2018*************/
+
+/*****************************I-SCP-JRR-HD-0-12/10/2018*************/
+alter table hd.trequerimiento
+add column id_proceso_macro integer;
+
+alter table hd.trequerimiento
+add column id_proceso_wf integer;
+
+alter table hd.trequerimiento
+add column id_estado_wf integer;
+
+alter table hd.trequerimiento
+add column estado integer;
+
+alter table hd.trequerimiento
+add column numero_tramite varchar(25);
+/*****************************F-SCP-JRR-HD-0-12/10/2018*************/

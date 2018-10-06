@@ -38,4 +38,27 @@ select pxp.f_insert_testructura_gui ('HDTIRE', 'HD');
 select pxp.f_insert_testructura_gui ('HDREQ', 'HD');
 /****************************F-DEP-JRR-HD-1-06/10/2018*************/
 
+/****************************I-DEP-JRR-HD-0-12/10/2018*************/
+ALTER TABLE hd.trequerimiento
+  ADD CONSTRAINT trequerimiento_id_proceso_macro_fk FOREIGN KEY (id_proceso_macro)
+    REFERENCES wf.tproceso_macro(id_proceso_macro)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE;
+    
+ALTER TABLE hd.trequerimiento
+  ADD CONSTRAINT trequerimiento_id_estado_wf_fk FOREIGN KEY (id_estado_wf)
+    REFERENCES wf.testado_wf(id_estado_wf)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE;
+    
+ALTER TABLE hd.trequerimiento
+  ADD CONSTRAINT trequerimiento_id_proceso_wf_fk FOREIGN KEY (id_proceso_wf)
+    REFERENCES wf.tproceso_wf(id_proceso_wf)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    NOT DEFERRABLE;   
+/****************************F-DEP-JRR-HD-0-12/10/2018*************/
+
 
