@@ -67,3 +67,7 @@ IS 'IDENTIFICADOR FORANEO DE LA TABLA DONDE ESTAN LOS TIPOS DE REQUERIMIENTOS';
 alter table hd.ttipo_requerimiento
 RENAME COLUMN cantidad TO cantidad_prueba;
 /*****************************F-SCP-JRR-HD-0-06/10/2018*************/
+
+/*****************************I-SCP-JRR-HD-1-06/10/2018*************/
+ALTER TABLE hd.ttipo_requerimiento ALTER COLUMN cantidad_prueba TYPE numeric; 
+/*****************************I-SCP-JRR-HD-1-06/10/2018*************/
