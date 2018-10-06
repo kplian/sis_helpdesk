@@ -13,3 +13,8 @@ select pxp.f_insert_tgui ('HELP DESK', '', 'HD', 'si', 1, '', 1, '', '', 'HD');
 select pxp.f_insert_tgui ('Requerimiento', 'Requerimiento', 'HDREQ', 'si', 2, 'sis_helpdesk/vista/requerimiento/Requerimiento.php', 2, '', 'Requerimiento', 'HD');
 
 /***********************************F-DAT-JRR-HD-1-06/10/2018****************************************/
+/***********************************I-DAT-JRR-HD-2-06/10/2018****************************************/
+
+select pxp.f_insert_tgui ('Tipo Requerimiento', 'Tipo Requerimiento', 'HDTIRE', 'si', 1, 'sis_helpdesk/vista/tipo_requerimiento/TipoRequerimiento.php', 2, '', 'TipoRequerimiento', 'HD');
+
+/***********************************F-DAT-JRR-HD-2-06/10/2018****************************************/
