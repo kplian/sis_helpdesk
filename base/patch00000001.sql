@@ -70,4 +70,4 @@ RENAME COLUMN cantidad TO cantidad_prueba;
 
 /*****************************I-SCP-JRR-HD-1-06/10/2018*************/
 ALTER TABLE hd.ttipo_requerimiento ALTER COLUMN cantidad_prueba TYPE numeric; 
-/*****************************I-SCP-JRR-HD-1-06/10/2018*************/
+/*****************************F-SCP-JRR-HD-1-06/10/2018*************/
