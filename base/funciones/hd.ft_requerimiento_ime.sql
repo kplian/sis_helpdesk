@@ -24,8 +24,7 @@ DECLARE
 	v_id_requerimiento     	integer;
 	v_resp		            varchar;
 	v_nombre_funcion        text;
-	v_mensaje_error         text;
-	v_id_requerimiento	integer;
+	v_mensaje_error         text;	
 			    
 BEGIN
 
