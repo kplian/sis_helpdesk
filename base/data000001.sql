@@ -6,3 +6,10 @@ VALUES ('HD', 'Sistema Help Desk', '2014-01-16', 'HD', 'activo', 'helpdesk', NUL
 select pxp.f_insert_tgui ('HELP DESK', '', 'HD', 'si', 1, '', 1, '', '', 'HD');
 
 /***********************************F-DAT-JRR-HD-0-06/10/2018****************************************/
+
+
+/***********************************I-DAT-JRR-HD-1-06/10/2018****************************************/
+
+select pxp.f_insert_tgui ('Requerimiento', 'Requerimiento', 'HDREQ', 'si', 2, 'sis_helpdesk/vista/requerimiento/Requerimiento.php', 2, '', 'Requerimiento', 'HD');
+
+/***********************************F-DAT-JRR-HD-1-06/10/2018****************************************/

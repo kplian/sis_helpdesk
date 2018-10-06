@@ -33,4 +33,9 @@ ALTER TABLE hd.trequerimiento
 select pxp.f_insert_testructura_gui ('HD', 'SISTEMA');
 /****************************F-DEP-JRR-HD-0-06/10/2018*************/
 
+/****************************I-DEP-JRR-HD-1-06/10/2018*************/
+select pxp.f_insert_testructura_gui ('HDTIRE', 'HD');
+select pxp.f_insert_testructura_gui ('HDREQ', 'HD');
+/****************************F-DEP-JRR-HD-1-06/10/2018*************/
+
 
