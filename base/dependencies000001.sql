@@ -25,9 +25,12 @@ ALTER TABLE hd.trequerimiento
     REFERENCES hd.ttipo_requerimiento(id_tipo_requerimiento)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-    NOT DEFERRABLE;
+    NOT DEFERRABLE;   
+    
 /****************************F-DEP-JMH-HD-0-22/09/2018*************/
 
-
+/****************************I-DEP-JRR-HD-0-06/10/2018*************/
+select pxp.f_insert_testructura_gui ('HD', 'SISTEMA');
+/****************************F-DEP-JRR-HD-0-06/10/2018*************/
 
 
